@@ -1,0 +1,29 @@
+{% extends 'myapp/hr_dashboard.html' %}
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Edit Employee</title>
+</head>
+
+
+<body>
+    {% block content %}
+    {% if error %}
+<p style="color:red">
+{{ error }}
+</p>
+{% endif %}
+
+    <form action="/save_edit/{{id}}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+            {{edit.as_table}}
+        </table>
+        <button type="submit"  class="btn btn-warning">SAVE</button>
+        <a href="{% url 'profile' %}" class="btn btn-warning">Cancel</a>
+    </form>
+    {% endblock %}
+</body>
+
+</html>

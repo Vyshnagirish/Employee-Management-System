@@ -1,0 +1,34 @@
+{% extends 'myapp/hr_dashboard.html' %}
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>{% block title %} Register {% endblock %}</title>
+</head>
+<body>
+{% block content %}
+<H1>ADD NEW EMPLOYEE </H1>
+<form action="" method="POST"  enctype="multipart/form-data">
+    {% csrf_token %}
+
+    {% if error %}
+        <p style="color:red">
+           {{ error }}
+        </p>
+    {% endif %}
+
+    {% if message %}
+        <p style="color:blue">
+            {{ message }}
+        </p><br>
+    {% endif %}
+
+    <table>
+        {{data.as_table}}
+        </table>
+        <button type="submit" class="btn btn-warning">ADD</button>
+        <a href="{% url 'employee_list' %}" class="btn btn-warning">Back</a>
+    </form>
+    {% endblock %}
+  </body>
+</html>

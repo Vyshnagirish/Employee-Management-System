@@ -1,0 +1,14 @@
+{% extends 'myapp/employee_dashboard.html' %}
+{% block content %}
+<br><br><br>
+    <div style="text-align: center;">
+        <img src="/media/{{ emp.image }}" alt="{{ emp.image.name }}" style="width:250px; height:250px"><br><br>
+        <p style="text-align: center;"><b>{{emp.name }}</b><br>
+            <br>
+            Email: {{emp.email }}<br>
+            Username:  {{emp.username }}<br>
+            Employee Code: {{emp.employee_code }}<br><br><br>
+        </p>
+        <a href="/editprofile/{{emp.id}}" class="btn btn-warning">Edit Your Profile</a>
+      </div>
+{%endblock%}

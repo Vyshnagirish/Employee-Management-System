@@ -1,0 +1,45 @@
+
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Employee Management System</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<div style="background-color:#f0f8ff">
+  <body>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">EMPLOYEE MANAGEMENT SYSTEM</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+          </li>
+        </ul>
+        <div class="d-flex" role="search" style="padding-left:800px;">
+                <a class="nav-link" href="#">{{emp}}</a>
+
+          <a href="{% url 'logoutpage' %}" class="btn btn-outline-primary">LOGOUT</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</div>
+
+  {% block content %}
+  <p style="text-align:center; padding-top:200px">
+    Hi {{ emp}},<br>
+  Welcome to Employee Mangagement System!!
+  {% endblock %}
+</body>
+</html>
