@@ -2,7 +2,8 @@ from django.contrib.auth import authenticate, login,logout
 from django.shortcuts import render, redirect
 from .forms import *
 from django.core.exceptions import ObjectDoesNotExist
-
+from django.core.mail import send_mail
+from employ import settings
 # Create your views here.
 def home(request):
     emp = request.session.get('username')
@@ -22,13 +23,6 @@ def employees(request):
         return redirect('loginpage')
     else:
         return render(employees.html)
-
-def add_employee(request):
-    emp = request.session.get('username')
-    if emp is None:
-        return redirect('loginpage')
-    else:
-        return render(add_employee.html)
 
 def loginpage(request):
     if request.method == 'POST':
@@ -63,7 +57,11 @@ def add_employee(request):
             form = EmployeeRegistrationForm(request.POST,files=request.FILES)
             if form.is_valid():
                 form.save()
-                return redirect('employee_list')  # Replace 'employee_list' with the appropriate URL name
+                subj="Welcome to Employee Management System!!"
+                msg="Hi!! You're successfully registered by the HR."
+                to = form.cleaned_data['email']
+                snd=send_mail(subj,msg,settings.EMAIL_HOST_USER,[to])  #to addr should be given in list,else error
+                return redirect('employee_list') 
             else:
                 error = "Invalid data!!"
                 return render(request, 'myapp/add_employee.html', {'data': form, 'error': error})

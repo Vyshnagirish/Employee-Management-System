@@ -15,6 +15,5 @@ class User(AbstractUser):
             self.employee_code = f"EMP00{random_number}"
         super().save(*args,**kwargs)
 
-
     def __str__(self):
         return self.name
