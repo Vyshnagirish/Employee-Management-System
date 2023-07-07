@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser,User
 import random
+# from phonenumber_field.modelfields import PhoneNumberField 
 
 class User(AbstractUser):
     name = models.CharField(max_length=50)
@@ -8,6 +9,7 @@ class User(AbstractUser):
     employee_type= models.CharField(blank="False", default="Employee",max_length=10)
     employee_code = models.CharField(max_length=10, unique="True")
     image = models.ImageField(upload_to='images/',blank="True")
+    phone_number=models.CharField(max_length=13,blank="True")
 
     def save(self,*args,**kwargs):
         if not self.employee_code:

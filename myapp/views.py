@@ -4,6 +4,8 @@ from .forms import *
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import send_mail
 from employ import settings
+from twilio.rest import Client
+
 # Create your views here.
 def home(request):
     emp = request.session.get('username')
@@ -11,7 +13,6 @@ def home(request):
         return redirect('loginpage')
     else:
         user=User.objects.get(username=emp)
-        # emp = EmployeeRegistrationForm(request.POST,files=request.FILES)
         if user.employee_type == 'HR':    
             return render(request,'myapp/hrhome.html',{'hr':user })
         else:
@@ -57,10 +58,13 @@ def add_employee(request):
             form = EmployeeRegistrationForm(request.POST,files=request.FILES)
             if form.is_valid():
                 form.save()
-                subj="Welcome to Employee Management System!!"
-                msg="Hi!! You're successfully registered by the HR."
                 to = form.cleaned_data['email']
-                snd=send_mail(subj,msg,settings.EMAIL_HOST_USER,[to])  #to addr should be given in list,else error
+                usr_name = request.POST.get('name')
+                sendemail(to,usr_name)
+
+                # recipient_number = request.POST.get('phone_number')
+                # sendtext(recipient_number,usr_name)                
+
                 return redirect('employee_list') 
             else:
                 error = "Invalid data!!"
@@ -152,3 +156,18 @@ def logoutpage(request):
 
             logout(request)
             return redirect('loginpage') 
+        
+def sendemail(to,usr_name):
+    subj="Welcome to Employee Management System!!"
+    msg=f"Hi {usr_name}, You're successfully registered to EMP."
+    send_mail(subj,msg,settings.EMAIL_HOST_USER,[to])  #to addr should be given in list,else error
+
+# def sendtext(recipient_number,usr_name):
+#     wts_msg = f"Hi {usr_name}, You're successfully registered to EMP."         
+#     client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN) # Create a Twilio client                
+#     # Send the text message
+#     client.messages.create(
+#         body=wts_msg,
+#         from_='+18148023116',  # my Twilio phone number
+#         to=recipient_number
+# )

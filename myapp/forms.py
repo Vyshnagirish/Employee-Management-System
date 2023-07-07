@@ -11,7 +11,7 @@ class EmployeeRegistrationForm(forms.ModelForm):
 
     class Meta:
         model = User 
-        fields = ['name', 'email', 'username', 'password','employee_type', 'image']
+        fields = ['name', 'email', 'username', 'password','phone_number','employee_type', 'image']
 
         widgets={
             'password' : forms.TextInput(attrs={

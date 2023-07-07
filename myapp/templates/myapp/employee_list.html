@@ -25,6 +25,7 @@
                 <th>EMAIL</th>
                 <th>USERNAME</th>
                 <th>EMPLOYEE CODE</th>
+                <th>PHONE NUMBER</th>
                 <th>IMAGE</th>
                 <th colspan=2>Actions</th>
             </tr>
@@ -36,6 +37,7 @@
                 <td>{{i.email }}</td>
                 <td>{{i.username }}</td>
                 <td>{{i.employee_code }}</td>
+                <td>{{i.phone_number }}</td>
                 <td><img src="/media/{{i.image}}" alt="{{ i.image.name }}" width=40px height=40px></td>
                 <td><a href="/edit/{{i.id}}" class="btn btn-warning">Edit</a>
                 <td><a href="/delete/{{i.id}}" class="btn btn-danger">Delete</a>
