@@ -13,17 +13,17 @@ def home(request):
         return redirect('loginpage')
     else:
         user=User.objects.get(username=emp)
-        if user.employee_type == 'HR':    
+        if user.employee_type == 'HR' or user.is_superuser == 1:    
             return render(request,'myapp/hrhome.html',{'hr':user })
         else:
             return render(request,'myapp/home.html',{'emp':user })
 
-def employees(request):
-    emp = request.session.get('username')
-    if emp is None:
-        return redirect('loginpage')
-    else:
-        return render(employees.html)
+# def employees(request):
+#     emp = request.session.get('username')
+#     if emp is None:
+#         return redirect('loginpage')
+#     else:
+#         return render(employees.html)
 
 def loginpage(request):
     if request.method == 'POST':
@@ -35,12 +35,10 @@ def loginpage(request):
             if password1 == password2:                    
                 if usertable.employee_type == 'HR' or usertable.is_superuser == 1:
                     request.session['username'] = usertable.username
-                    hr = request.session.get('username')
-                    return render(request, 'myapp/hr_dashboard.html',{'hr':hr})
+                    return render(request, 'myapp/hr_dashboard.html',{'hr':usertable})
                 else:
                     request.session['username'] = usertable.username
-                    emp = request.session.get('username')
-                    return render(request, 'myapp/employee_dashboard.html',{'emp':emp})
+                    return render(request, 'myapp/employee_dashboard.html',{'emp':usertable})
             else:
                 error = "Invalid Password."
                 return render(request, 'myapp/loginpage.html', {'error': error})
@@ -53,7 +51,8 @@ def add_employee(request):
     emp = request.session.get('username')
     if emp is None:                 #not logged in  
         return redirect('loginpage') 
-    else:
+    else:  
+        hr=User.objects.get(username=emp) #to show round profile pic of hr      
         if request.method == 'POST':
             form = EmployeeRegistrationForm(request.POST,files=request.FILES)
             if form.is_valid():
@@ -68,17 +67,18 @@ def add_employee(request):
                 return redirect('employee_list') 
             else:
                 error = "Invalid data!!"
-                return render(request, 'myapp/add_employee.html', {'data': form, 'error': error})
+                return render(request, 'myapp/add_employee.html', {'data': form, 'error': error,'hr':hr})
         else:
             form = EmployeeRegistrationForm()
-            return render(request, 'myapp/add_employee.html', {'data': form})
+            return render(request, 'myapp/add_employee.html', {'data': form,'hr':hr})
    
 def employee_list(request):
     emp = request.session.get('username')
     if emp is None:                 #not logged in  
         return redirect('loginpage') 
     employees = User.objects.exclude(is_superuser=True)
-    return render(request, 'myapp/employee_list.html', {'view': employees})
+    hr = User.objects.get(username=emp) # line added for displaying round profile pic on top
+    return render(request, 'myapp/employee_list.html', {'view': employees, 'hr':hr})
 
 def profile(request):
     emp = request.session.get('username')
@@ -87,8 +87,8 @@ def profile(request):
     else:
         user=User.objects.get(username=emp)
         # emp = EmployeeRegistrationForm(request.POST,files=request.FILES)
-        if user.employee_type == 'HR':    
-            return render(request,'myapp/hrprofile.html',{'emp':user })
+        if user.employee_type == 'HR' or user.is_superuser == 1:    
+            return render(request,'myapp/hrprofile.html',{'hr':user })
         else:
             return render(request,'myapp/profile.html',{'emp':user })
 
@@ -97,9 +97,10 @@ def edit(request,id):
     if emp is None:                 #not logged in  
         return redirect('loginpage') 
     else:
-        x=User.objects.get(id=id)
+        x=User.objects.get(id=id) #to get id of employee whom we want to edit
         frm=EmployeeRegistrationForm(instance=x)
-        return render(request,'myapp/editemployee.html',{'edit':frm, 'id':id})
+        hr=User.objects.get(username=emp) #to show round prfile pic of hr
+        return render(request,'myapp/editemployee.html',{'edit':frm, 'id':id,'hr':hr})
     
 def save_edit(request,id):
     emp = request.session.get('username')
@@ -122,7 +123,7 @@ def editprofile(request,id):
     else:
         x=User.objects.get(id=id)
         frm=EmployeeRegistrationForm(instance=x)
-        return render(request,'myapp/editprofile.html',{'edit':frm, 'id':id,'emp':emp})
+        return render(request,'myapp/editprofile.html',{'edit':frm, 'id':id,'emp':x})
     
 def save_profile(request,id):
     emp = request.session.get('username')

@@ -8,7 +8,7 @@ class User(AbstractUser):
     email = models.EmailField(blank="True")
     employee_type= models.CharField(blank="False", default="Employee",max_length=10)
     employee_code = models.CharField(max_length=10, unique="True")
-    image = models.ImageField(upload_to='images/',blank="True")
+    image = models.ImageField(upload_to='images/',default='images/default-profile-pic.jpg',blank="False")
     phone_number=models.CharField(max_length=13,blank="True")
 
     def save(self,*args,**kwargs):
