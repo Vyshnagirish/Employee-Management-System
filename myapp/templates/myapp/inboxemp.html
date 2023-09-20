@@ -1,0 +1,59 @@
+{% extends 'myapp/employee_dashboard.html' %}
+{% block content %}
+{% load static %}
+<html>
+<head>
+  <title>Message Inbox</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/inboxoutbox.css' %}">     
+    </head>
+    <body>
+      <div class="container">
+        <br>
+        <h3>Inbox</h3>
+        {% if mymessages %}
+          <table class="table">
+            {% for message in mymessages %}
+              {% comment %} {% if message.read == 0 %} {% endcomment %}
+              <tr {% if message.read == 0 %}style="background-color: #c0c0c0;"{% endif %}>
+                <td>
+                    {% if message.to == message.messagefrom %}
+                    <a href="/openinboxmessage/{{message.id}}" style="color:black;">me</a>
+                    {% else %}
+                    <a href="/openinboxmessage/{{message.id}}" style="color:black;">{{ message.messagefrom }}</a>
+                      {% endif %}
+                    </td>
+                    <td><a href="/openinboxmessage/{{message.id}}" style="color:black;">{{ message.subject }}</a></td>
+                    <td><a href="/openinboxmessage/{{message.id}}" style="color:black;">{{ message.message }}</a></td>
+                    <td style="color:#696969; font-size:12px">Sent on:{{ message.send_on}}</a></td>
+                    <td><a href="/deleteinboxmessage/{{message.id}}"><i class="fas fa-trash"></i></a></td> 
+              </tr>
+{% comment %} 
+              {% else %}
+              <tr style="background-color: gray;">
+                {% if message.to == message.messagefrom %}
+                <a href="/openinboxmessage/{{message.id}}" style="color:black;">me</a>
+                {% else %}
+                <a href="/openinboxmessage/{{message.id}}" style="color:black;">{{ message.messagefrom }}</a>
+                  {% endif %}
+                </td>
+                <td><a href="/openinboxmessage/{{message.id}}" style="color:black;">{{ message.subject }}</a></td>
+                <td><a href="/openinboxmessage/{{message.id}}" style="color:black;">{{ message.message }}</a></td>
+                <td style="color:#696969; font-size:12px">Sent on:{{ message.send_on}}</a></td>
+                <td><a href="/deleteinboxmessage/{{message.id}}"><i class="fas fa-trash"></i></a></td> 
+              </tr>
+              {% endif %} {% endcomment %}
+
+            {% endfor %}
+          </table>
+
+          </div>
+        {% else %}
+          <p>No messages in the inbox.</p>
+        {% endif %}
+      </div>
+    </body>
+    </html>
+    
+
+{%endblock%}

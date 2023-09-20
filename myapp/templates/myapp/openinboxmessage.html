@@ -1,0 +1,38 @@
+{% extends 'myapp/employee_dashboard.html' %}
+{% block content %}
+{% load static %}
+<html>
+<head>
+  <title>Message Outbox</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/inboxoutbox.css' %}"> 
+    </head>
+    <body>
+      <div class="container">
+        <br> <h3>Inbox </h3><br><br>
+        <table class="table">
+            <tr>
+                <td>
+                        <h5>Sent By : {{message.messagefrom}}</h5>
+                </td>
+                <td>{{ message.send_on}}</td>
+            </tr>
+            <tr>
+                <td colspan=2><h6>Subject : {{ message.subject}}</h6></td>
+            </tr>
+            <tr>
+                <td colspan=2>{{ message.message}}</td>
+            </tr>
+            {% if message.attachment %}
+            <tr>
+                <td colspan=2><img src="/media/{{ message.attachment }}" alt="{{ message.attachment.name }}" style="width:250px; height:250px"><br><br></td>
+            </tr>
+            {% endif %}
+        </table>
+      </div>
+      <a href="/reply/{{message.id}}" class="btn btn-primary">Reply</a>
+      <a href="{% url 'inbox' %}" class="btn btn-warning">Back</a>
+    </body>
+    </html>
+    
+
+{%endblock%}

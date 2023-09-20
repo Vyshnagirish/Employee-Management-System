@@ -1,0 +1,134 @@
+{% extends 'myapp/employee_dashboard.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reply</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'css1/sendmessage.css' %}"> {% endcomment %}
+  <style>
+    /* Reset default browser styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+}
+
+/* Form container styles */
+form {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+/* Form label styles */
+label {
+  font-weight: bold;
+  margin-top: 10px;
+  display: block;
+}
+
+/* Form input and textarea styles */
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: border-color 0.3s;
+}
+
+textarea {
+  height: 120px;
+  resize: vertical;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+  border-color: #007BFF;
+  outline: none;
+}
+
+/* File input styles */
+input[type="file"] {
+  margin-top: 5px;
+}
+
+/* Add these styles to clear floats and force a new line for the "Reply" button */
+button.reply-btn {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  background-color: #007BFF;
+  color: #fff;
+  margin-right: 10px;
+  clear: both; /* Clear floats to start on a new line */
+}
+
+button.reply-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Add these styles to clear floats and force a new line for the "Cancel" button */
+a.cancel-btn {
+  display: inline-block;
+  background-color: #dc3545;
+  color: #fff;
+  text-decoration: none;
+  margin-top: 15px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  clear: both; /* Clear floats to start on a new line */
+}
+
+a.cancel-btn:hover {
+  background-color: #c82333;
+}
+
+
+</style>
+</head>
+<body> <br>
+  <p> <h5>Send Reply </h5></p>
+    <form action="{% url 'sendreply' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="to">To:</label>
+        <input type="text" name="to" value="{{ message.messagefrom }}">    
+      
+        <label for="subject">Subject:</label>
+        <input type="text" name="subject" value="Re: {{ message.subject }}">  
+      
+        <label for="message">Message:</label>
+        <textarea name="message" id="message" rows="7" cols="50"></textarea>
+
+        <label for="message">Add Attachment:</label>
+        <input type="file" name="attachment">  
+      <br><br>
+        <button type="submit"  class="btn btn-primary">Reply </button>
+        <a href="{% url 'inbox' %}" class="btn btn-danger">Cancel</a>
+      </form>
+
+  </div>
+</body>
+</html>
+
+{%endblock%}

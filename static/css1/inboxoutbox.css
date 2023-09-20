@@ -1,0 +1,41 @@
+  /* Apply styles to the table */
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+  }
+
+  /* Apply styles to the table headings (the <b> elements) */
+  .table th {
+    font-weight: bold;
+    background-color: #f2f2f2;
+    padding: 8px;
+  }
+
+  /* Apply styles to the table cells (the <td> elements) */
+  .table td {
+    border: none;
+    padding: 8px;
+  }
+
+  /* Apply styles to the links within the table cells */
+  .table a {
+    color: #007bff; /* Change link color to blue */
+    text-decoration: none;
+  }
+
+  /* Apply styles when hovering over links */
+  .table a:hover {
+    text-decoration: underline;
+  }
+
+  /* Apply styles to alternate rows to improve readability */
+  .table tr {
+    background-color: #f9f9f9;
+  }
+
+  i {
+    font-size: 24px; /* Set the size of the icon */
+    color: red; /* Set the color of the icon */
+    cursor: pointer; /* Add a pointer cursor to indicate it's clickable */
+  }

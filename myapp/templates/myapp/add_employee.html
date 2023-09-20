@@ -4,10 +4,12 @@
 <html>
 <head>
 <title>{% block title %} Register {% endblock %}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 {% block content %}
-<H1>ADD NEW EMPLOYEE </H1>
+<br>
+<H4>Add new employee </H4><br>
 <form action="" method="POST"  enctype="multipart/form-data">
     {% csrf_token %}
 
@@ -26,8 +28,9 @@
     <table>
         {{data.as_table}}
         </table>
-        <button type="submit" class="btn btn-warning">ADD</button>
-        <a href="{% url 'employee_list' %}" class="btn btn-warning">Back</a>
+        <br>
+        <button type="submit" class="btn btn-success">ADD</button>
+        <a href="{% url 'employee_list' %}" class="btn btn-warning">Cancel</a>
     </form>
     {% endblock %}
   </body>

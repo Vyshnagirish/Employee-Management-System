@@ -1,9 +1,9 @@
 {% extends 'myapp/hr_dashboard.html' %}
-
 <!DOCTYPE html>
 <html>
 <head>
 <title>Edit Employee</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 
@@ -14,13 +14,45 @@
 {{ error }}
 </p>
 {% endif %}
-
+    <br><br><h3>EDIT EMPLOYEE DETAILS</h3><br>
     <form action="/save_edit/{{id}}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <table>
-            {{edit.as_table}}
+            <tr>
+                <th>Employee Code : </th><td>{{ employee_code }}</td>
+                
+            </tr>
+            <tr>
+                <th>Name : </th><td>{{ edit.name }}</td>
+            </tr>
+            <tr>
+                <th>Email : </th>
+                <td>
+                    <input type="text" value="{{ edit.email.value }}" readonly style="color: #666;">
+                </td>
+            </tr>
+    
+            <tr>
+                <th>Username : </th>
+                <td>
+                    <input type="text" value="{{ edit.username.value }}" readonly style="color: #666;">
+                </td>
+            </tr>
+            <tr>
+                <th>Phone Number : </th><td>{{ edit.phone_number }}</td>
+                
+            </tr>
+            <tr>
+                <th>Employee Type : </th><td>{{ edit.employee_type }}</td>
+                
+            </tr>
+            <tr>
+                <th>Profile Pic : </th><td>{{ edit.image }}</td>         
+            </tr>
+            
         </table>
-        <button type="submit"  class="btn btn-warning">SAVE</button>
+        <br>
+        <button type="submit"  class="btn btn-success">SAVE</button>
         <a href="{% url 'employee_list' %}" class="btn btn-warning">Cancel</a>
     </form>
     {% endblock %}

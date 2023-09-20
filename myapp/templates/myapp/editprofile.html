@@ -4,21 +4,49 @@
 <html>
 <head>
 <title>Edit Profile</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
     {% block content %}
+    <br><br>
+
+<h4>EDIT YOUR PROFILE </h4>
+<br>
     {% if error %}
 <p style="color:red">
 {{ error }}
 </p>
 {% endif %}
-
     <form action="/save_profile/{{id}}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <table>
-            {{edit.as_table}}
-        </table>
-        <button type="submit"  class="btn btn-warning">SAVE</button>
+        <tr>
+            <th>Name : </th><td>{{ edit.name }}</td>
+
+        </tr>
+        <tr>
+            <th>Email : </th>
+            <td>
+                <input type="text" value="{{ edit.email.value }}" readonly style="color: #666;">
+            </td>
+        </tr>
+
+        <tr>
+            <th>Username : </th>
+            <td>
+                <input type="text" value="{{ edit.username.value }}" readonly style="color: #666;">
+            </td>
+        </tr>
+        <tr>
+            <th>Phone Number : </th><td>{{ edit.phone_number }}</td>
+            
+        </tr>
+        <tr>
+            <th>Profile Pic : </th><td>{{ edit.image }}</td>         
+        </tr>
+    </table>
+    <br>
+        <button type="submit"  class="btn btn-success">SAVE</button>
         <a href="{% url 'profile' %}" class="btn btn-warning">Cancel</a>
     </form>
     {% endblock %}

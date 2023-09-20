@@ -1,0 +1,46 @@
+{% extends 'myapp/hr_dashboard.html' %}
+
+{% block content %}
+
+{% load static %}
+<html>
+<head>
+  <title>Message Outbox</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/inboxoutbox.css' %}"> 
+    </head>
+    <body>
+      <div class="container">
+        <br>
+        <h4>Outbox</h4>
+        {% if mymessages %}
+          <table class="table">
+            {% for message in mymessages %}
+            <tr>
+                <td>
+                    {% if message.to == message.messagefrom %}
+                        <a href="/openoutboxmessage/{{ message.id }}" style="color:black;">me</a>
+                    {% else %}
+                        <a href="/openoutboxmessage/{{ message.id }}" style="color:black;">{{ message.to }}</a>
+                    {% endif %}
+                </td>
+                <td><a href="/openoutboxmessage/{{ message.id }}" style="color:black;">{{ message.subject }}</a></td>
+                <td><a href="/openoutboxmessage/{{ message.id }}" style="color:black;">{{ message.message }}</a></td>
+                <td style="color:#696969; font-size:12px">Sent on: {{ message.send_on}}</td>
+            
+              <td><a href="/deleteoutboxmessage/{{message.id}}"><i class="fas fa-trash"></i></a></td>
+          
+            </tr>
+            {% endfor %}
+          </table>
+
+          </div>
+        {% else %}
+          <p>No messages in the outbox.</p>
+        {% endif %}
+      </div>
+    </body>
+    </html>
+    
+
+{%endblock%}

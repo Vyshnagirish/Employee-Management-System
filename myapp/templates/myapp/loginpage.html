@@ -1,20 +1,106 @@
-
 {% load static %}
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>Login</title>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>EMPLOYMENT MANAGEMENT SYSTEM</title>
+
+  <!-- slider stylesheet -->
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css" />
+
+
+  <!-- font wesome stylesheet -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{% static 'css/responsive.css' %}" rel="stylesheet" />
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+    }
+    
+    .login-container {
+      width: 300px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    h2 {
+      text-align: center;
+    }
+    
+    .form-group {
+      margin-bottom: 15px;
+    }
+    
+    label {
+      font-weight: bold;
+    }
+    
+    input[type="text"],
+    input[type="password"] {
+      width: 90%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    
+    button[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    button[type="submit"]:hover {
+      background-color: #45a049;
+    }
+  </style>  
 </head>
 
-<body>
-    <!DOCTYPE html>
+<body class="sub_page">
+  <div class="hero_area">
+    <!-- header section strats -->
+    {% include 'myapp/shared/nav.html' %}
+  </div>
+
+
+{% block content %}
+    {% comment %} <!DOCTYPE html>
     <html>
     <head>
       <title>Login Page</title>
-      <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+      <link rel="stylesheet" type="text/css" href="{% static 'css1/login.css' %}">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
-    <body>
-       <P style="text-align:center; font-size:30px; font-weight:10px"> EMPLOYEE MANAGEMENT SYSTEM</p>
+    <body> {% endcomment %}
+<br><br>
       <div class="login-container">        
         <h2>Login</h2>
         <form method="post" action="">
@@ -33,6 +119,12 @@
           </div>
         </form>
       </div>    
+
+{% endblock %}
+
+<script type="text/javascript" src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
+
 </body>
 
 </html>

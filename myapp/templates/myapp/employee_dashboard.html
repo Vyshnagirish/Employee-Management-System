@@ -1,46 +1,96 @@
 {% load static %}
-<!doctype html>
-<html lang="en">
-  <head>
-    <title>Employee Management System</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>EMPLOYMENT MANAGEMENT SYSTEM</title>
+
+  <!-- slider stylesheet -->
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css" />
+
+  <!-- font wesome stylesheet -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{% static 'css/responsive.css' %}" rel="stylesheet" />
 </head>
-<div style="background-color:#f0f8ff">
-  <body>
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">EMPLOYEE MANAGEMENT SYSTEM</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'profile' %}">Profile</a>
-          </li>
-        </ul>
-        <div class="d-flex" role="search" style="padding-left:800px;">
-                <a class="nav-link" href="#">{{emp}}</a>
-                <div class="rounded-circle" style="width: 30px; height: 30px; overflow: hidden; margin-right: 15px;margin-top: 5px;">
+
+<body class="sub_page">
+  <div class="hero_area">
+    <!-- header section strats -->
+    <header class="header_section">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg custom_nav-container pt-3">
+          <a class="navbar-brand mr-5" href="{% url 'home' %}">
+            <img src="{% static 'images/logo.png' %}" alt="">
+            <span>
+              EMPLOYEE MANAGEMENT SYSTEM
+            </span>
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="d-flex ml-auto flex-column flex-lg-row align-items-center">
+              <ul class="navbar-nav  ">
+                <li class="nav-item active">
+                  <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'sendmessageemp' %}"> Message </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'inbox' %}"> Inbox({{unread_count}}) </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'outbox' %}">Outbox</a>
+                </li>
+              </ul>
+
+              <div class="d-flex align-items-center">
+                <a class="nav-link" href="{% url 'profile' %}">{{emp}}</a>
+                <div class="rounded-circle" style="width: 30px; height: 30px; overflow: hidden; margin-right: 15px;">
                   <img src="/media/{{emp.image}}" alt="{{ emp.image.name }}" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <a href="{% url 'logoutpage' %}" class="btn btn-outline-warning">LOGOUT</a>
               </div>
-          <a href="{% url 'logoutpage' %}" class="btn btn-outline-primary">LOGOUT</a>
-        </div>
+            </div>
+          </div>
+        </nav>
       </div>
-    </div>
-  </nav>
+    </header>
+  </div>
+
+
+<div class="container">
+{% block content %}
+  <p style="text-align:center; padding-top:20px;">
+    Hi {{ emp }},<br>
+    Welcome to Employee Management System!!
+  {% endblock %}
 </div>
 
-  {% block content %}
-  <p style="text-align:center; padding-top:200px">
-    Hi {{ emp}},<br>
-  Welcome to Employee Mangagement System!!
-  {% endblock %}
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/GRsKjz8OJvwu/8lVZhhzez4WJPpQ2yS9jA6Jb3p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.9/dist/umd/popper.min.js" integrity="sha384-R5K6P1VVMdIl1kWZfEpNakFn3QBLKsJAO4GEQLyN9jpLcvQg6ZJT4CkYZRb9Sooj" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-6aWD6xyHkV3o8p9E+AzBlhVMrK7o/3bPm5i9HSaGKlNp1pbx6lP9blJxAV+VQ6TJ" crossorigin="anonymous"></script>
 </body>
 </html>
+

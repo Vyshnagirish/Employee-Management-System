@@ -19,3 +19,16 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.name
+    
+class Messages(models.Model):
+    messagefrom = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_messages')
+    to = models.ForeignKey(User, on_delete=models.CASCADE, related_name='received_messages')
+    subject = models.CharField(blank=True, max_length=200)
+    message = models.TextField(blank=True)
+    attachment = models.FileField(blank=True)
+    send_on = models.DateTimeField(auto_now=True)
+    read = models.BooleanField(default=False) 
+
+
+    def __str__(self):
+        return f"Message from {self.messagefrom} to {self.to}"

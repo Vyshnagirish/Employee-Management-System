@@ -1,14 +1,16 @@
 {% extends 'myapp/hr_dashboard.html' %}
 {% block content %}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <br><br><br>
     <div style="text-align: center;">
-        <img src="/media/{{ hr.image }}" alt="{{ emp.hr.name }}" style="width:250px; height:250px"><br><br>
-        <p style="text-align: center;"><b>{{hr.name }}</b><br>
+        <img src="/media/{{ emp.image }}" alt="{{ emp.emp.name }}" style="width:250px; height:250px"><br><br>
+        <p style="text-align: center;"><b>{{emp.name }}</b><br>
             <br>
-            Email: {{hr.email }}<br>
-            Username:  {{hr.username }}<br>
-            Employee Code: {{hr.employee_code }}<br><br><br>
+            Email: {{emp.email }}<br>
+            Username:  {{emp.username }}<br>
+            Employee Code: {{emp.employee_code }}<br><br><br>
         </p>
-        <a href="/edit/{{hr.id}}" class="btn btn-warning">Edit Your Profile</a>
+        <a href="/editprofile/{{emp.id}}" class="btn btn-primary">Edit Your Profile</a>
+        <a href="/changepassword/{{emp.id}}" class="btn btn-primary">Change Password</a>
       </div>
 {%endblock%}

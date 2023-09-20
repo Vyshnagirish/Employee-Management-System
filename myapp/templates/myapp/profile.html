@@ -1,6 +1,11 @@
 {% extends 'myapp/employee_dashboard.html' %}
 {% block content %}
-<br><br><br>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<br><br>
+{% if message_success %}
+   <p style="text-align:center; color:green"> {{ message_success }} </p>
+{% endif %}
+<br>
     <div style="text-align: center;">
         <img src="/media/{{ emp.image }}" alt="{{ emp.image.name }}" style="width:250px; height:250px"><br><br>
         <p style="text-align: center;"><b>{{emp.name }}</b><br>
@@ -10,5 +15,6 @@
             Employee Code: {{emp.employee_code }}<br><br><br>
         </p>
         <a href="/editprofile/{{emp.id}}" class="btn btn-warning">Edit Your Profile</a>
+        <a href="/changepassword/{{emp.id}}" class="btn btn-warning">Change Password</a>
       </div>
 {%endblock%}
